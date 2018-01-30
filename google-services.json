@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "325495463808",
+    "firebase_url": "https://momo-91736.firebaseio.com",
+    "project_id": "momo-91736",
+    "storage_bucket": "momo-91736.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325495463808:android:08550d3b3853f5c8",
+        "android_client_info": {
+          "package_name": "com.example.user.simpletwitter_c"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325495463808-s5krc8pjpcptkofrhdcm3jra4v5fjdou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADJGTfoxKXGkTRu6zdr2QbzdjUbA0T8_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
