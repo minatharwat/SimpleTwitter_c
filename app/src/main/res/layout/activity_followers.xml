@@ -7,11 +7,18 @@
     tools:context="com.example.user.simpletwitter_c.Followers">
 
 
-    <TextView
-        android:id="@+id/theusername"
-        android:layout_width="wrap_content"
+    <!--<TextView-->
+    <!--android:id="@+id/theusername"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="hello from followers"/>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hello from followers"/>
+        android:id="@+id/followers_recyc"
+
+        />
 
 <!--
 

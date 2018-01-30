@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.user.simpletwitter_c.Model.MyFollower;
 import com.example.user.simpletwitter_c.Utilies.ObjectSerializer;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -50,13 +49,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static SharedPreferences sharedPreferences;
 
-    Gson gson;
 
     List<MyFollower> myList;
-    List<User> slist=null;
+
 
     private View loginLayout;
-    List<User> caList;
+
 
     private String consumerKey = null;
     private String consumerSecret = null;
@@ -90,16 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String username = sharedPreferences.getString(PREF_USER_NAME, "");
             Long userId = sharedPreferences.getLong(PREF_USER_Id, 0);
 
-            //go to followers
-           // getFriendList();
-           // followers.addAll(getFriendList());
 
-
-
-        // String s =sharedPreferences.getString(Gson_Objects,"");
-
-
-            //followers.addAll(caList);
 
             try {
                 followers = (ArrayList) ObjectSerializer.deserialize(sharedPreferences.getString("UserList", ObjectSerializer.serialize(new ArrayList())));
@@ -129,15 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     final User user = twitter.showUser(userId);
                     final String username = user.getName();
 
-                   // saveTwitterInfo(accessToken);
 
-                    //loginLayout.setVisibility(View.GONE);
-
-                   // followers.clear();
-                   // followers.addAll(getFriendList());
-
-
-                   getFriendList();
+                    getFriendList();
 
                    saveTwitterInfo(accessToken);
 
@@ -172,19 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (friendList != null) {
             followers=new ArrayList<User>();
             followers.addAll(friendList);
-/*
-           slist=new ArrayList<>();
-           slist.addAll(friendList);
 
-            myList=new ArrayList<>();
-            for (int i=0;i<slist.size();i++) {
-
-                myList.get(i).setFullname(slist.get(i).getName());
-                myList.get(i).setProfile_url_pic(slist.get(i).getOriginalProfileImageURL());
-                myList.get(i).setBio(slist.get(i).getDescription());
-
-            }
-            */
         }
         return friendList;
     }
@@ -219,19 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.putString(PREF_USER_NAME, username);
             e.putLong(PREF_USER_Id,userId);
 
-            //gson = new Gson();
-           // String jsonlist = gson.toJson(getFriendList());
-            //e.putString(Gson_Objects,gson.toJson(getFriendList()));
 
-/*
-            myList=new ArrayList<>();
-            for (int i=0;i<getFriendList().size();i++) {
-
-                myList.get(i).setFullname(getFriendList().get(i).getName());
-                myList.get(i).setProfile_url_pic(getFriendList().get(i).getOriginalProfileImageURL());
-                myList.get(i).setBio(getFriendList().get(i).getDescription());
-            }*/
-            e.putString(Gson_Objects, String.valueOf(myList));
 
             try {
                 e.putString("UserList", ObjectSerializer.serialize((Serializable) getFriendList()));
@@ -269,9 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
         } else {
-           // loginLayout.setVisibility(View.GONE);
-            //go to followers
-           // shareLayout.setVisibility(View.VISIBLE);
+
 
 //            getFriendList();
 
@@ -296,12 +252,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 saveTwitterInfo(accessToken);
 
-                //loginLayout.setVisibility(View.GONE);
-                //go to followers
-               // shareLayout.setVisibility(View.VISIBLE);
 
-              //  userName.setText(MainActivity.this.getResources().getString(R.string.hello)
-                //        + " " +username);
+                //go to followers
+
 
 
                 getFriendList();
