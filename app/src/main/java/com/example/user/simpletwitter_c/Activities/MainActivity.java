@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    //get followers using twitter4j library and put the list in followers list which is defined static in followers activity
+    //get followers using twitter4j library and put the list in followers list which is defined static in followers  activity
     public List<User> getFriendList() {
         List<User> friendList = null;
         try {
