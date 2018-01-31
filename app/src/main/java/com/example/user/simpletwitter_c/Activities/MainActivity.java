@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.user.simpletwitter_c.R;
 import com.example.user.simpletwitter_c.Utilies.ObjectSerializer;
@@ -154,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        Toast.makeText(this, ""+friendList, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, ""+friendList, Toast.LENGTH_LONG).show();
         if (friendList != null) {
             Followers.followers = new ArrayList<User>();
             Followers.followers.addAll(friendList);
