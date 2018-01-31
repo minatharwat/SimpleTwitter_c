@@ -1,4 +1,4 @@
-package com.example.user.simpletwitter_c;
+package com.example.user.simpletwitter_c.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,10 +8,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.user.simpletwitter_c.Model.MyFollower;
+import com.example.user.simpletwitter_c.R;
 import com.example.user.simpletwitter_c.Utilies.ObjectSerializer;
 
 import java.io.IOException;
@@ -27,8 +26,6 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
-import static com.example.user.simpletwitter_c.Followers.followers;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String PREF_NAME = "sample_twitter_pref";
@@ -37,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String PREF_KEY_TWITTER_LOGIN = "is_twitter_loggedin";
     private static final String PREF_USER_NAME = "twitter_user_name";
     private static final String PREF_USER_Id = "user_id";
-    private static final String Gson_Objects="gson_objects";
+
 
 
     public static final int WEBVIEW_REQUEST_CODE = 100;
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static SharedPreferences sharedPreferences;
 
 
-    List<MyFollower> myList;
+
 
 
     private View loginLayout;
@@ -69,18 +66,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
            initConfigs();
 
+        //StrictMode is a developer tool which detects things you might be-
+        // -doing by accident and brings them to your attention so you can fix them.
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         setContentView(R.layout.activity_main);
 
-        loginLayout = (RelativeLayout) findViewById(R.id.login_layout);
+        loginLayout = findViewById(R.id.login_layout);
 
         findViewById(R.id.btn_login).setOnClickListener(this);
 
         sharedPreferences = getSharedPreferences(PREF_NAME, 0);
 
         boolean isLoggedIn = sharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
+
+        // the time you open the app and it's not the first time it will go to the followers-
+        // -screen of your account that you registered in first time
+        //if not logged before then authticate and get user and id and list of followers and go to scrren followers
 
         if(isLoggedIn) {
 
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             try {
-                followers = (ArrayList) ObjectSerializer.deserialize(sharedPreferences.getString("UserList", ObjectSerializer.serialize(new ArrayList())));
+                Followers.followers = (ArrayList) ObjectSerializer.deserialize(sharedPreferences.getString("UserList", ObjectSerializer.serialize(new ArrayList())));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -138,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+    //get followers using twitter4j library and put the list in followers list which is defined static in followers activity
     public List<User> getFriendList() {
         List<User> friendList = null;
         try {
@@ -152,8 +156,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Toast.makeText(this, ""+friendList, Toast.LENGTH_LONG).show();
         if (friendList != null) {
-            followers=new ArrayList<User>();
-            followers.addAll(friendList);
+            Followers.followers = new ArrayList<User>();
+            Followers.followers.addAll(friendList);
 
         }
         return friendList;
@@ -170,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     //Save lists and info into shredPreference
+    //save user list to handle the signed in already user and go to followers activity directly
 
     private void saveTwitterInfo(AccessToken accessToken) {
 
@@ -204,6 +209,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // build the config of twitter4j library
+    //  if not looged thensend intent to the web view with auth url by getting callbak
+    //if logged go to followers screen and skip looging
     private void loginToTwitter() {
 
         boolean isLoggedIn = sharedPreferences.getBoolean(PREF_KEY_TWITTER_LOGIN, false);
@@ -237,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //when i get the activity result the logging succeds then i will take username and id and start the follower activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -256,7 +265,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //go to followers
 
 
-
                 getFriendList();
 
                 Intent intent=new Intent(this,Followers.class);
@@ -272,6 +280,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    //when button clicks go to logintwitter
 
     @Override
     public void onClick(View v) {

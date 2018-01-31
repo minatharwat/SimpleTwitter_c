@@ -1,6 +1,7 @@
 package com.example.user.simpletwitter_c.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.user.simpletwitter_c.Activities.FollowerInfo;
 import com.example.user.simpletwitter_c.R;
+import com.example.user.simpletwitter_c.Utilies.Logs;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import twitter4j.User;
+
+import static com.example.user.simpletwitter_c.Activities.Followers.followers;
 
 /**
  * Created by ${Mina} on 30/01/2018.
@@ -50,6 +55,7 @@ public class FollowersRecyc extends RecyclerView.Adapter<FollowersRecyc.viewHold
             holder.bio.setText(obj.getDescription());
         } else {
             holder.bio.setVisibility(View.GONE);
+
         }
 
 
@@ -78,6 +84,22 @@ public class FollowersRecyc extends RecyclerView.Adapter<FollowersRecyc.viewHold
         @Override
         public void onClick(View v) {
 
+            pos = getLayoutPosition();
+
+            Intent intent = new Intent(v.getContext(), FollowerInfo.class);
+
+
+            intent.putExtra("prof_image", followers.get(pos).getOriginalProfileImageURL());
+            intent.putExtra("background_image", followers.get(pos).getProfileBannerIPadRetinaURL());
+            intent.putExtra("name", followers.get(pos).getScreenName());
+
+            intent.putExtra("id", followers.get(pos).getId());
+
+
+            Logs.toast(v.getContext(), "" + getLayoutPosition());
+
+
+            itemView.getContext().startActivity(intent);
 
         }
     }

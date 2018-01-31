@@ -9,7 +9,7 @@
     android:paddingTop="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    tools:context="com.example.user.simpletwitter_c.MainActivity">
+    tools:context="com.example.user.simpletwitter_c.Activities.MainActivity">
 
     <RelativeLayout
         android:id="@+id/login_layout"

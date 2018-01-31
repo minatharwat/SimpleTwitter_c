@@ -1,16 +1,19 @@
-package com.example.user.simpletwitter_c;
+package com.example.user.simpletwitter_c.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.example.user.simpletwitter_c.Adapters.FollowersRecyc;
+import com.example.user.simpletwitter_c.R;
 
 import java.util.List;
 
 import twitter4j.User;
+
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class Followers extends AppCompatActivity {
     String flag;
@@ -34,15 +37,22 @@ public class Followers extends AppCompatActivity {
         id_o = getIntent().getLongExtra("twittersession_id", 0);
 
 
-        Toast.makeText(this, "ccccccccccccccccccccccccc"+followers, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this, "ccccccccccccccccccccccccc"+followers, Toast.LENGTH_SHORT).show();
 
 
         // set controls
 
-        recyclerView = (RecyclerView) findViewById(R.id.followers_recyc);
+        recyclerView = findViewById(R.id.followers_recyc);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        ;
+        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        } else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        }
         adapter = new FollowersRecyc(followers, this);
 
         recyclerView.setAdapter(adapter);
